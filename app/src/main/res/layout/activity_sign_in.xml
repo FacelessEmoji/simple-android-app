@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_image"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="bottom">
+
+    <TextView
+        android:id="@+id/textViewWelcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Добро пожаловать!"
+        android:textSize="24sp"
+        android:textColor="#3F4042"
+        android:gravity="center"
+        android:layout_marginBottom="32dp"
+        android:visibility="gone"/> <!-- Скрыто по умолчанию -->
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:hint="Введите вашу почту"
+        android:textColor="#3F4042"
+        android:background="@android:drawable/edit_text" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:hint="Введите ваш пароль"
+        android:inputType="textPassword"
+        android:textColor="#3F4042"
+        android:background="@android:drawable/edit_text" />
+
+    <Button
+        android:id="@+id/button_sign_in"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Войти"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#3F4042" />
+
+    <Button
+        android:id="@+id/button_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Регистрация"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#3F4042" />
+
+</LinearLayout>
