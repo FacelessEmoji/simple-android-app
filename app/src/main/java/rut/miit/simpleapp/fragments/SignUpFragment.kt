@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import rut.miit.simpleapp.R
 import rut.miit.simpleapp.MainActivity
@@ -22,18 +23,23 @@ class SignUpFragment : Fragment() {
         val buttonRegister = view.findViewById<Button>(R.id.button_register)
 
         buttonRegister.setOnClickListener {
-            val username = editTextUsername.text.toString()
-            val email = editTextEmail.text.toString()
+            val username = editTextUsername.text.toString().trim()
+            val email = editTextEmail.text.toString().trim()
 
-            // Передаем данные обратно в SignInFragment и заменяем фрагмент
-            val fragment = SignInFragment().apply {
-                arguments = Bundle().apply {
-                    putString("username", username)
-                    putString("email", email)
+            if (username.isNotEmpty() && email.isNotEmpty()) {
+                // Передаем данные в SignInFragment
+                val fragment = SignInFragment().apply {
+                    arguments = Bundle().apply {
+                        putString("username", username)
+                        putString("email", email)
+                    }
                 }
-            }
 
-            (activity as? MainActivity)?.loadFragment(fragment)
+                (activity as? MainActivity)?.loadFragment(fragment)
+            } else {
+                // Выводим ошибку, если поля пустые
+                Toast.makeText(activity, "Заполните все поля", Toast.LENGTH_SHORT).show()
+            }
         }
 
         return view
