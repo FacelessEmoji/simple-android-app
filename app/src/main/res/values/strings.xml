@@ -4,4 +4,7 @@
     <string name="title_activity_sign_in">SignInActivity</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="button_sign_in">Войти</string> <!-- Текст кнопки "Войти" -->
+    <string name="button_register">Зарегистрироваться</string> <!-- Текст кнопки "Регистрация" -->
+    <string name="welcome_message">Добро пожаловать!</string> <!-- Приветственное сообщение -->
 </resources>

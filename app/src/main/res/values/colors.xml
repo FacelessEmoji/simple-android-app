@@ -7,4 +7,11 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Добавьте недостающие цвета -->
+    <color name="primary">#FF6200EE</color>      <!-- Замените на нужный цвет -->
+    <color name="primaryDark">#FF3700B3</color>  <!-- Замените на нужный цвет -->
+    <color name="accentColor">#FF03DAC5</color>   <!-- Замените на нужный цвет -->
+    <color name="background">#FFFFFF</color>      <!-- Замените на нужный цвет -->
+    <color name="textColor">#000000</color>       <!-- Замените на нужный цвет -->
 </resources>
