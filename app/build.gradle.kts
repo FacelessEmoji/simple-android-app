@@ -52,6 +52,25 @@ android {
 }
 
 dependencies {
+    val nav_version = "2.8.2"
+    //                                 Navigation
+    // Jetpack Compose integration
+    implementation("androidx.navigation:navigation-compose:$nav_version")
+
+    // Views/Fragments integration
+    implementation("androidx.navigation:navigation-fragment:$nav_version")
+    implementation("androidx.navigation:navigation-ui:$nav_version")
+
+    // Feature module support for Fragments
+    implementation("androidx.navigation:navigation-dynamic-features-fragment:$nav_version")
+
+    // Testing Navigation
+    androidTestImplementation("androidx.navigation:navigation-testing:$nav_version")
+
+    //                                   Safeargs
+    implementation("androidx.navigation.safeargs:androidx.navigation.safeargs.gradle.plugin:$nav_version")
+
+    //                                   Other
     runtimeOnly("androidx.compose.material3:material3:1.3.0")
     runtimeOnly("androidx.compose.ui:ui:1.7.2")
     implementation(libs.androidx.core.ktx)
