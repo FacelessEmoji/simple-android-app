@@ -8,50 +8,46 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import rut.miit.simpleapp.R
-import rut.miit.simpleapp.MainActivity
+import rut.miit.simpleapp.databinding.FragmentSignInBinding
 
 class SignInFragment : Fragment() {
 
-    private lateinit var textViewWelcome: TextView
-    private lateinit var editTextEmail: EditText
-    private lateinit var editTextPassword: EditText
+    private var _binding: FragmentSignInBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_sign_in, container, false)
+    ): View {
+        _binding = FragmentSignInBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        textViewWelcome = view.findViewById(R.id.textViewWelcome)
-        editTextEmail = view.findViewById(R.id.email)  // Поле для ввода email
-        editTextPassword = view.findViewById(R.id.password)  // Поле для ввода пароля
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        // Получаем данные из аргументов
-        val username = arguments?.getString("username")
-        val email = arguments?.getString("email")
+        // Получаем данные с помощью Safe Args
+        val args = SignInFragmentArgs.fromBundle(requireArguments())
+        val username = args.username
+        val email = args.email
 
-        // Если данные переданы, выводим их на экран
-        if (username != null && email != null) {
-            textViewWelcome.text = "Привет, $username! Ваша почта: $email"
-            textViewWelcome.visibility = View.VISIBLE
+        // Устанавливаем приветствие и email
+        binding.textViewWelcome.text = "Привет, $username! Ваша почта: $email"
+        binding.textViewWelcome.visibility = View.VISIBLE
+        binding.email.setText(email)
 
-            // Устанавливаем email в поле формы
-            editTextEmail.setText(email)
+        binding.buttonSignIn.setOnClickListener {
+            findNavController().navigate(R.id.action_signInFragment_to_homeFragment)
         }
 
-        val buttonSignIn = view.findViewById<Button>(R.id.button_sign_in)
-        val buttonSignUp = view.findViewById<Button>(R.id.button_register)
-
-        buttonSignIn.setOnClickListener {
-            // Переход на HomeFragment
-            (activity as? MainActivity)?.navigateToHome()
+        binding.buttonRegister.setOnClickListener {
+            findNavController().navigate(R.id.action_signInFragment_to_signUpFragment)
         }
+    }
 
-        buttonSignUp.setOnClickListener {
-            // Переход на SignUpFragment
-            (activity as? MainActivity)?.navigateToSignUp()
-        }
-
-        return view
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

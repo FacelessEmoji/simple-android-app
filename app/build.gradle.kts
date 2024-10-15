@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.androidx.navigation.safe.args)
 }
 
 android {
@@ -9,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "rut.miit.simpleapp"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -42,7 +43,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.5.14" // Обновлено до 1.5.14
     }
     packaging {
         resources {
@@ -53,26 +54,22 @@ android {
 
 dependencies {
     val nav_version = "2.8.2"
-    //                                 Navigation
-    // Jetpack Compose integration
+    // Navigation
     implementation("androidx.navigation:navigation-compose:$nav_version")
-
-    // Views/Fragments integration
     implementation("androidx.navigation:navigation-fragment:$nav_version")
     implementation("androidx.navigation:navigation-ui:$nav_version")
-
-    // Feature module support for Fragments
     implementation("androidx.navigation:navigation-dynamic-features-fragment:$nav_version")
-
-    // Testing Navigation
     androidTestImplementation("androidx.navigation:navigation-testing:$nav_version")
 
-    //                                   Safeargs
-    implementation("androidx.navigation.safeargs:androidx.navigation.safeargs.gradle.plugin:$nav_version")
+    // Safeargs - удалите эту строку:
+    // implementation("androidx.navigation.safeargs:androidx.navigation.safeargs.gradle.plugin:$nav_version")
 
-    //                                   Other
-    runtimeOnly("androidx.compose.material3:material3:1.3.0")
-    runtimeOnly("androidx.compose.ui:ui:1.7.2")
+    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
+    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
+
+    // Other
+    implementation("androidx.compose.material3:material3:1.3.0")
+    implementation("androidx.compose.ui:ui:1.7.2")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -91,5 +88,4 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-    runtimeOnly(libs.androidx.recyclerview)
 }

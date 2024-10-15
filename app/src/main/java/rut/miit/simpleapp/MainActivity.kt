@@ -2,49 +2,34 @@ package rut.miit.simpleapp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import rut.miit.simpleapp.fragments.HomeFragment
-import rut.miit.simpleapp.fragments.OnboardFragment
-import rut.miit.simpleapp.fragments.SignInFragment
-import rut.miit.simpleapp.fragments.SignUpFragment
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.appcompat.widget.Toolbar
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // При запуске приложения показываем OnboardFragment
-        if (savedInstanceState == null) {
-            loadFragment(OnboardFragment())
-        }
+        // Устанавливаем Toolbar как ActionBar
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+        // Инициализируем NavController
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.fragmentContainer) as NavHostFragment
+        navController = navHostFragment.navController
+
+        // Поддержка ActionBar с навигацией
+        setupActionBarWithNavController(navController)
     }
 
-    // Метод для навигации к OnboardFragment
-    fun navigateToOnboard() {
-        loadFragment(OnboardFragment())
-    }
-
-    // Метод для навигации к SignInFragment
-    fun navigateToSignIn() {
-        loadFragment(SignInFragment())
-    }
-
-    // Метод для навигации к SignUpFragment
-    fun navigateToSignUp() {
-        loadFragment(SignUpFragment())
-    }
-
-    // Метод для навигации к HomeFragment
-    fun navigateToHome() {
-        loadFragment(HomeFragment())
-    }
-
-    // Общий метод для замены фрагментов
-    fun loadFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainer, fragment)
-            .addToBackStack(null) // Добавляем в back stack для навигации "назад"
-            .commit()
+    // Обрабатываем нажатие кнопки "Назад"
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 }

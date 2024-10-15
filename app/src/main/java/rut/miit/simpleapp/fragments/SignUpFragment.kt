@@ -8,40 +8,42 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import rut.miit.simpleapp.R
-import rut.miit.simpleapp.MainActivity
+import rut.miit.simpleapp.databinding.FragmentSignUpBinding
 
 class SignUpFragment : Fragment() {
 
+    private var _binding: FragmentSignUpBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_sign_up, container, false)
+    ): View {
+        _binding = FragmentSignUpBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        val editTextUsername = view.findViewById<EditText>(R.id.editTextUsername)
-        val editTextEmail = view.findViewById<EditText>(R.id.editTextEmail)
-        val buttonRegister = view.findViewById<Button>(R.id.button_register)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        buttonRegister.setOnClickListener {
-            val username = editTextUsername.text.toString().trim()
-            val email = editTextEmail.text.toString().trim()
+        binding.buttonRegister.setOnClickListener {
+            val username = binding.editTextUsername.text.toString()
+            val email = binding.editTextEmail.text.toString()
 
             if (username.isNotEmpty() && email.isNotEmpty()) {
-                // Передаем данные в SignInFragment
-                val fragment = SignInFragment().apply {
-                    arguments = Bundle().apply {
-                        putString("username", username)
-                        putString("email", email)
-                    }
-                }
-
-                (activity as? MainActivity)?.loadFragment(fragment)
+                // Используем Safe Args для передачи данных
+                val action = SignUpFragmentDirections
+                    .actionSignUpFragmentToSignInFragment(username, email)
+                findNavController().navigate(action)
             } else {
-                // Выводим ошибку, если поля пустые
                 Toast.makeText(activity, "Заполните все поля", Toast.LENGTH_SHORT).show()
             }
         }
+    }
 
-        return view
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
