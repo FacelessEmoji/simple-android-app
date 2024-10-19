@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.androidx.navigation.safe.args)
+//    id("org.jetbrains.kotlin.plugin.serialization")
 }
 
 android {
@@ -48,6 +49,8 @@ android {
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+//            excludes += "META-INF/common.kotlin_module"
+//            excludes += "META-INF/*.kotlin_module"
         }
     }
 }
@@ -66,6 +69,16 @@ dependencies {
 
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
+
+    //Ktor
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.cio)
+    implementation(libs.ktor.client.content.negotiation)
+    implementation(libs.ktor.serialization.kotlinx.json)
+
+    implementation("io.ktor:ktor-client-logging:2.0.0")
+//    implementation(libs.slf4j.android)
 
     // Other
     implementation("androidx.compose.material3:material3:1.3.0")

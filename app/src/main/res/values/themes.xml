@@ -2,7 +2,10 @@
 <resources>
 
     <!-- Определяем основную тему для приложения -->
-    <style name="Theme.SimpleApp" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Убираем встроенный ActionBar -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primaryDark</item> <!-- Темный основной цвет -->
         <item name="colorAccent">@color/accentColor</item> <!-- Цвет акцента -->

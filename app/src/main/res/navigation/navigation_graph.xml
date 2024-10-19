@@ -32,7 +32,7 @@
             app:destination="@id/signUpFragment" />
         <action
             android:id="@+id/action_signInFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/gameOfThronesFragment" />
     </fragment>
 
     <!-- SignUp fragment -->
@@ -45,9 +45,14 @@
             app:destination="@id/signInFragment" />
     </fragment>
 
-    <!-- Home fragment -->
+<!--    &lt;!&ndash; Home fragment &ndash;&gt;-->
+<!--    <fragment-->
+<!--        android:id="@+id/homeFragment"-->
+<!--        android:name="rut.miit.simpleapp.fragments.HomeFragment"-->
+<!--        android:label="Home" />-->
+
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="rut.miit.simpleapp.fragments.HomeFragment"
-        android:label="Home" />
+        android:id="@+id/gameOfThronesFragment"
+        android:name="rut.miit.simpleapp.fragments.GameOfThronesFragment"
+        android:label="Game of Thrones" />
 </navigation>
