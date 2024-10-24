@@ -7,6 +7,7 @@ pluginManagement {
                 includeGroupByRegex("androidx.*")
             }
         }
+//        maven("https://kotlin.bintray.com/kotlinx")
         mavenCentral()
         gradlePluginPortal()
     }

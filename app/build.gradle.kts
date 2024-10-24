@@ -2,7 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.androidx.navigation.safe.args)
-//    id("org.jetbrains.kotlin.plugin.serialization")
+    kotlin("plugin.serialization") version "1.6.0"
+//    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -72,13 +73,17 @@ dependencies {
 
     //Ktor
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.kotlinx.serialization.core)
     implementation(libs.ktor.client.core)
     implementation(libs.ktor.client.cio)
     implementation(libs.ktor.client.content.negotiation)
     implementation(libs.ktor.serialization.kotlinx.json)
 
     implementation("io.ktor:ktor-client-logging:2.0.0")
-//    implementation(libs.slf4j.android)
+
+    implementation(libs.slf4j.api)
+    implementation(libs.slf4j.android)
+//    alias(libs.plugins.compose.compiler)
 
     // Other
     implementation("androidx.compose.material3:material3:1.3.0")
