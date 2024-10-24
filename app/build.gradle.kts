@@ -3,7 +3,6 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.androidx.navigation.safe.args)
     kotlin("plugin.serialization") version "1.6.0"
-//    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -50,8 +49,6 @@ android {
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
-//            excludes += "META-INF/common.kotlin_module"
-//            excludes += "META-INF/*.kotlin_module"
         }
     }
 }
@@ -64,10 +61,6 @@ dependencies {
     implementation("androidx.navigation:navigation-ui:$nav_version")
     implementation("androidx.navigation:navigation-dynamic-features-fragment:$nav_version")
     androidTestImplementation("androidx.navigation:navigation-testing:$nav_version")
-
-    // Safeargs - удалите эту строку:
-    // implementation("androidx.navigation.safeargs:androidx.navigation.safeargs.gradle.plugin:$nav_version")
-
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
 
@@ -78,12 +71,11 @@ dependencies {
     implementation(libs.ktor.client.cio)
     implementation(libs.ktor.client.content.negotiation)
     implementation(libs.ktor.serialization.kotlinx.json)
-
     implementation("io.ktor:ktor-client-logging:2.0.0")
 
+    //slf4j
     implementation(libs.slf4j.api)
     implementation(libs.slf4j.android)
-//    alias(libs.plugins.compose.compiler)
 
     // Other
     implementation("androidx.compose.material3:material3:1.3.0")
