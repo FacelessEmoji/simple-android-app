@@ -30,20 +30,16 @@ class GameOfThronesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Устанавливаем LayoutManager для RecyclerView
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
 
-        // Получение данных с API
         fetchCharacters()
     }
 
     private fun fetchCharacters() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                // Получаем 50 персонажей
                 val people: List<Character> = GameOfThronesApi.getCharacters(1, 50)
 
-                // Обновляем UI в главном потоке
                 withContext(Dispatchers.Main) {
                     if (people.isNotEmpty()) {
                         binding.recyclerView.adapter = CharacterAdapter(people)
