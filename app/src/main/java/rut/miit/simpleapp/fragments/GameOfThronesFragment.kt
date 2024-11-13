@@ -18,7 +18,7 @@ import rut.miit.simpleapp.databinding.FragmentGameOfThronesBinding
 class GameOfThronesFragment : Fragment() {
 
     private var _binding: FragmentGameOfThronesBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding ?: throw IllegalStateException("Binding should not be accessed before onCreateView or after onDestroyView")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
