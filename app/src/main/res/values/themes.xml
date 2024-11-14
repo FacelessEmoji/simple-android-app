@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <!-- Определяем основную тему для приложения -->
@@ -6,11 +5,15 @@
         <!-- Убираем встроенный ActionBar -->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <!-- Цвета темы -->
         <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryDark">@color/primaryDark</item> <!-- Темный основной цвет -->
-        <item name="colorAccent">@color/accentColor</item> <!-- Цвет акцента -->
-        <item name="android:colorBackground">@color/background</item>
-        <item name="android:textColor">@color/textColor</item>
+        <item name="colorPrimaryDark">@color/primaryDark</item> <!-- Цвет Status Bar -->
+        <item name="colorAccent">@color/accentColor</item> <!-- Цвет акцентов -->
+        <item name="android:colorBackground">@color/background</item> <!-- Цвет фона -->
+        <item name="android:textColor">@color/textColor</item> <!-- Цвет текста -->
+
+        <!-- Настройки для непрозрачного Status Bar -->
+        <item name="android:windowTranslucentStatus">false</item>
     </style>
 
 </resources>

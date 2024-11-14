@@ -15,20 +15,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Устанавливаем Toolbar как ActionBar
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
-        setSupportActionBar(toolbar)
+//        val toolbar: Toolbar = findViewById(R.id.toolbar)
+//        setSupportActionBar(toolbar)
 
-        // Инициализируем NavController
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.fragmentContainer) as NavHostFragment
         navController = navHostFragment.navController
 
-        // Поддержка ActionBar с навигацией
-        setupActionBarWithNavController(navController)
+//        setupActionBarWithNavController(navController)
     }
 
-    // Обрабатываем нажатие кнопки "Назад"
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }

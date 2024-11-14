@@ -31,7 +31,6 @@ object GameOfThronesApi {
         }
     }
 
-//    TODO: need to close connection
     suspend fun getCharacters(start: Int, count: Int): List<Character> {
         return try {
             val response = client.get {
