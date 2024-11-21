@@ -42,6 +42,8 @@ class SettingsFragment : Fragment() {
             saveSettings()
         }
 
+        setupFileSection()
+
         requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
@@ -51,6 +53,7 @@ class SettingsFragment : Fragment() {
             }
         )
     }
+
 
     private fun initializeSettings() {
         val notificationsEnabled = sharedPreferences.getBoolean("notifications", true)
@@ -92,19 +95,21 @@ class SettingsFragment : Fragment() {
 
         binding.deleteFileButton.setOnClickListener {
             if (FileManager.isFileInExternalStorage()) {
-                val fileContent = FileManager.saveToInternalStorage(
-                    requireContext(),
-                    FileManager.readExternalFileContent()
-                )
-
-                val deleted = FileManager.deleteFromExternalStorage()
-                Toast.makeText(
-                    requireContext(),
-                    if (deleted) "Файл удалён и сохранён в резервной копии" else "Ошибка удаления файла",
-                    Toast.LENGTH_SHORT
-                ).show()
-                updateFileStatus()
+                val fileContent = FileManager.readExternalFileContent()
+                if (FileManager.saveToInternalStorage(requireContext(), fileContent)) {
+                    val deleted = FileManager.deleteFromExternalStorage()
+                    Toast.makeText(
+                        requireContext(),
+                        if (deleted) "Файл удалён и сохранён в резервной копии" else "Ошибка удаления файла",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    Toast.makeText(requireContext(), "Ошибка создания резервной копии", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                Toast.makeText(requireContext(), "Файл для удаления не найден", Toast.LENGTH_SHORT).show()
             }
+            updateFileStatus()
         }
 
         binding.restoreFileButton.setOnClickListener {
@@ -119,14 +124,13 @@ class SettingsFragment : Fragment() {
     }
 
     private fun updateFileStatus() {
-        binding.fileStatus.text = if (FileManager.isFileInExternalStorage()) {
-            "Файл доступен в Documents"
-        } else if (FileManager.isFileInInternalStorage(requireContext())) {
-            "Файл доступен в резервной копии"
-        } else {
-            "Файл отсутствует"
+        binding.fileStatus.text = when {
+            FileManager.isFileInExternalStorage() -> "Файл доступен в Documents"
+            FileManager.isFileInInternalStorage(requireContext()) -> "Файл доступен в резервной копии"
+            else -> "Файл отсутствует"
         }
     }
+
 
 
     override fun onDestroyView() {

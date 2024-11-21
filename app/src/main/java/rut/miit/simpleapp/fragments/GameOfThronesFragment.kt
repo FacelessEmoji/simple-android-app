@@ -13,6 +13,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import rut.miit.simpleapp.adapters.CharacterAdapter
 import rut.miit.simpleapp.data.Character
 import rut.miit.simpleapp.databinding.FragmentGameOfThronesBinding
@@ -42,18 +44,6 @@ class GameOfThronesFragment : Fragment() {
         fetchCharacters()
     }
 
-    private fun saveCharactersToFile(heroes: List<Character>) {
-        val content = "Некоторый текст для сохранения в файл"
-        val isSaved = FileManager.saveToExternalStorage(content)
-
-        if (isSaved) {
-            val file = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), "myfile.txt")
-            Toast.makeText(requireContext(), "Файл сохранён: ${file.absolutePath}", Toast.LENGTH_LONG).show()
-        } else {
-            Toast.makeText(requireContext(), "Не удалось сохранить файл.", Toast.LENGTH_SHORT).show()
-        }
-    }
-
     private fun fetchCharacters() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
@@ -62,7 +52,12 @@ class GameOfThronesFragment : Fragment() {
                 withContext(Dispatchers.Main) {
                     if (people.isNotEmpty()) {
                         binding.recyclerView.adapter = CharacterAdapter(people)
-                        saveCharactersToFile(people)
+                        val success = saveCharactersToFile(people)
+                        if (success) {
+                            showToast("Characters saved to file.txt.")
+                        } else {
+                            showToast("Failed to save characters to file.")
+                        }
                     } else {
                         showToast("No characters found.")
                     }
@@ -75,6 +70,18 @@ class GameOfThronesFragment : Fragment() {
             }
         }
     }
+
+    private fun saveCharactersToFile(people: List<Character>): Boolean {
+        return try {
+            val charactersJson = Json.encodeToString(people)
+            FileManager.saveToExternalStorage(charactersJson)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
+        }
+    }
+
+
 
     private fun showToast(message: String) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()

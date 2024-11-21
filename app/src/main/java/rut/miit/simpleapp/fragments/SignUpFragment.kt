@@ -29,7 +29,6 @@ class SignUpFragment : Fragment() {
             val email = binding.editTextEmail.text.toString()
 
             if (username.isNotEmpty() && email.isNotEmpty()) {
-                // Используем Safe Args для передачи данных
                 val action = SignUpFragmentDirections
                     .actionSignUpFragmentToSignInFragment(username, email)
                 findNavController().navigate(action)
