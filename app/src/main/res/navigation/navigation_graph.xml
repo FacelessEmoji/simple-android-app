@@ -55,4 +55,11 @@
         android:id="@+id/gameOfThronesFragment"
         android:name="rut.miit.simpleapp.fragments.GameOfThronesFragment"
         android:label="Game of Thrones" />
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="rut.miit.simpleapp.fragments.SettingsFragment"
+        android:label="Settings">
+        <!-- Укажите здесь действия, если они потребуются -->
+    </fragment>
 </navigation>

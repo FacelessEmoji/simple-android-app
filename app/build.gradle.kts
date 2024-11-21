@@ -54,6 +54,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.preference.ktx)
     val nav_version = "2.8.2"
     // Navigation
     implementation("androidx.navigation:navigation-compose:$nav_version")

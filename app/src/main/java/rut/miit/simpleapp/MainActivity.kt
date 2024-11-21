@@ -1,6 +1,7 @@
 package rut.miit.simpleapp
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -23,6 +24,11 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
 
 //        setupActionBarWithNavController(navController)
+
+        val settingsIcon = findViewById<View>(R.id.settingsIcon)
+        settingsIcon.setOnClickListener {
+            navController.navigate(R.id.settingsFragment)
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
