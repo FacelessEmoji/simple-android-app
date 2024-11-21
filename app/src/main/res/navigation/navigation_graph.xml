@@ -4,7 +4,6 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/onboardFragment">
 
-    <!-- Onboarding fragment -->
     <fragment
         android:id="@+id/onboardFragment"
         android:name="rut.miit.simpleapp.fragments.OnboardFragment"
@@ -14,7 +13,6 @@
             app:destination="@id/signInFragment" />
     </fragment>
 
-    <!-- SignIn fragment -->
     <fragment
         android:id="@+id/signInFragment"
         android:name="rut.miit.simpleapp.fragments.SignInFragment"
@@ -22,11 +20,11 @@
         <argument
             android:name="username"
             app:argType="string"
-            android:defaultValue="default_user" /> <!-- Задаём значение по умолчанию -->
+            android:defaultValue="default_user" />
         <argument
             android:name="email"
             app:argType="string"
-            android:defaultValue="default@example.com" /> <!-- Задаём значение по умолчанию -->
+            android:defaultValue="default@example.com" />
         <action
             android:id="@+id/action_signInFragment_to_signUpFragment"
             app:destination="@id/signUpFragment" />
@@ -35,7 +33,6 @@
             app:destination="@id/gameOfThronesFragment" />
     </fragment>
 
-    <!-- SignUp fragment -->
     <fragment
         android:id="@+id/signUpFragment"
         android:name="rut.miit.simpleapp.fragments.SignUpFragment"
@@ -60,6 +57,5 @@
         android:id="@+id/settingsFragment"
         android:name="rut.miit.simpleapp.fragments.SettingsFragment"
         android:label="Settings">
-        <!-- Укажите здесь действия, если они потребуются -->
     </fragment>
 </navigation>

@@ -16,7 +16,6 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
-        <!-- Заглушки для параметров -->
         <Switch
             android:id="@+id/notificationsSwitch"
             android:layout_width="match_parent"
@@ -43,5 +42,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Сохранить" />
+
+        <TextView
+            android:id="@+id/fileStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Статус файла" />
+
+        <Button
+            android:id="@+id/deleteFileButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Удалить файл" />
+
+        <Button
+            android:id="@+id/restoreFileButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Восстановить файл" />
+
     </LinearLayout>
 </ScrollView>

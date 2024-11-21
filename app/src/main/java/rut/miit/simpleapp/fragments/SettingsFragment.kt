@@ -11,6 +11,7 @@ import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
 import androidx.navigation.fragment.findNavController
 import rut.miit.simpleapp.databinding.FragmentSettingsBinding
+import rut.miit.simpleapp.utils.FileManager
 
 class SettingsFragment : Fragment() {
 
@@ -31,25 +32,20 @@ class SettingsFragment : Fragment() {
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
 
-        // Установка значений из SharedPreferences или значений по умолчанию
         initializeSettings()
 
-        // Слушатель переключателя темы
         binding.themeSwitch.setOnCheckedChangeListener { _, isChecked ->
             saveThemePreference(isChecked)
         }
 
-        // Обработчик кнопки "Сохранить"
         binding.saveButton.setOnClickListener {
             saveSettings()
         }
 
-        // Добавляем обработчик кнопки "Назад"
         requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    // Возвращаемся назад
                     findNavController().popBackStack()
                 }
             }
@@ -69,7 +65,6 @@ class SettingsFragment : Fragment() {
     private fun saveSettings() {
         val email = binding.userEmail.text.toString()
 
-        // Проверка корректности email
         if (email.isNotEmpty() && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             sharedPreferences.edit().apply {
                 putBoolean("notifications", binding.notificationsSwitch.isChecked)
@@ -91,6 +86,48 @@ class SettingsFragment : Fragment() {
             Toast.LENGTH_SHORT
         ).show()
     }
+
+    private fun setupFileSection() {
+        updateFileStatus()
+
+        binding.deleteFileButton.setOnClickListener {
+            if (FileManager.isFileInExternalStorage()) {
+                val fileContent = FileManager.saveToInternalStorage(
+                    requireContext(),
+                    FileManager.readExternalFileContent()
+                )
+
+                val deleted = FileManager.deleteFromExternalStorage()
+                Toast.makeText(
+                    requireContext(),
+                    if (deleted) "Файл удалён и сохранён в резервной копии" else "Ошибка удаления файла",
+                    Toast.LENGTH_SHORT
+                ).show()
+                updateFileStatus()
+            }
+        }
+
+        binding.restoreFileButton.setOnClickListener {
+            val restored = FileManager.restoreFromInternalToExternal(requireContext())
+            Toast.makeText(
+                requireContext(),
+                if (restored) "Файл восстановлен!" else "Резервная копия недоступна",
+                Toast.LENGTH_SHORT
+            ).show()
+            updateFileStatus()
+        }
+    }
+
+    private fun updateFileStatus() {
+        binding.fileStatus.text = if (FileManager.isFileInExternalStorage()) {
+            "Файл доступен в Documents"
+        } else if (FileManager.isFileInInternalStorage(requireContext())) {
+            "Файл доступен в резервной копии"
+        } else {
+            "Файл отсутствует"
+        }
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
