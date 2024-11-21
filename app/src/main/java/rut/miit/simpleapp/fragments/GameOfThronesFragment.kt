@@ -1,6 +1,7 @@
 package rut.miit.simpleapp.fragments
 
 import android.os.Bundle
+import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,8 @@ import kotlinx.coroutines.withContext
 import rut.miit.simpleapp.adapters.CharacterAdapter
 import rut.miit.simpleapp.data.Character
 import rut.miit.simpleapp.databinding.FragmentGameOfThronesBinding
+import rut.miit.simpleapp.utils.FileManager
+import java.io.File
 
 class GameOfThronesFragment : Fragment() {
 
@@ -39,6 +42,19 @@ class GameOfThronesFragment : Fragment() {
         fetchCharacters()
     }
 
+    private fun saveCharactersToFile(heroes: List<Character>) {
+        val content = "Некоторый текст для сохранения в файл"
+        val isSaved = FileManager.saveToExternalStorage(content)
+
+        if (isSaved) {
+            // Здесь вам нужно указать путь к файлу, если сохранение прошло успешно.
+            val file = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), "myfile.txt")
+            Toast.makeText(requireContext(), "Файл сохранён: ${file.absolutePath}", Toast.LENGTH_LONG).show()
+        } else {
+            Toast.makeText(requireContext(), "Не удалось сохранить файл.", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     private fun fetchCharacters() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
@@ -47,6 +63,7 @@ class GameOfThronesFragment : Fragment() {
                 withContext(Dispatchers.Main) {
                     if (people.isNotEmpty()) {
                         binding.recyclerView.adapter = CharacterAdapter(people)
+                        saveCharactersToFile(people) // Сохраняем файл после загрузки данных
                     } else {
                         showToast("No characters found.")
                     }

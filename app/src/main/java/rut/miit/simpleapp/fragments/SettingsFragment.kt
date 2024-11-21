@@ -11,6 +11,7 @@ import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
 import androidx.navigation.fragment.findNavController
 import rut.miit.simpleapp.databinding.FragmentSettingsBinding
+import rut.miit.simpleapp.utils.FileManager
 
 class SettingsFragment : Fragment() {
 
@@ -91,6 +92,48 @@ class SettingsFragment : Fragment() {
             Toast.LENGTH_SHORT
         ).show()
     }
+
+    private fun setupFileSection() {
+        updateFileStatus()
+
+        binding.deleteFileButton.setOnClickListener {
+            if (FileManager.isFileInExternalStorage()) {
+                val fileContent = FileManager.saveToInternalStorage(
+                    requireContext(),
+                    FileManager.readExternalFileContent()
+                ) // Сохраняем в внутреннее хранилище перед удалением
+
+                val deleted = FileManager.deleteFromExternalStorage()
+                Toast.makeText(
+                    requireContext(),
+                    if (deleted) "Файл удалён и сохранён в резервной копии" else "Ошибка удаления файла",
+                    Toast.LENGTH_SHORT
+                ).show()
+                updateFileStatus()
+            }
+        }
+
+        binding.restoreFileButton.setOnClickListener {
+            val restored = FileManager.restoreFromInternalToExternal(requireContext())
+            Toast.makeText(
+                requireContext(),
+                if (restored) "Файл восстановлен!" else "Резервная копия недоступна",
+                Toast.LENGTH_SHORT
+            ).show()
+            updateFileStatus()
+        }
+    }
+
+    private fun updateFileStatus() {
+        binding.fileStatus.text = if (FileManager.isFileInExternalStorage()) {
+            "Файл доступен в Documents"
+        } else if (FileManager.isFileInInternalStorage(requireContext())) {
+            "Файл доступен в резервной копии"
+        } else {
+            "Файл отсутствует"
+        }
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
