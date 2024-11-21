@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import rut.miit.simpleapp.R
@@ -23,6 +24,9 @@ class OnboardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Показываем тулбар на этом фрагменте
+        (activity as? AppCompatActivity)?.supportActionBar?.show()
 
         binding.buttonSignIn.setOnClickListener {
             findNavController().navigate(R.id.action_onboardFragment_to_signInFragment)

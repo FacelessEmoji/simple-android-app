@@ -1,19 +1,8 @@
 <resources>
-
-    <!-- Определяем основную тему для приложения -->
+    <!-- Используем тему, которая НЕ включает ActionBar -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Убираем встроенный ActionBar -->
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <!-- Цвета темы -->
         <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryDark">@color/primaryDark</item> <!-- Цвет Status Bar -->
-        <item name="colorAccent">@color/accentColor</item> <!-- Цвет акцентов -->
-        <item name="android:colorBackground">@color/background</item> <!-- Цвет фона -->
-        <item name="android:textColor">@color/textColor</item> <!-- Цвет текста -->
-
-        <!-- Настройки для непрозрачного Status Bar -->
-        <item name="android:windowTranslucentStatus">false</item>
+        <item name="colorPrimaryDark">@color/primaryDark</item>
+        <item name="colorAccent">@color/accentColor</item>
     </style>
-
 </resources>
