@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.androidx.navigation.safe.args)
     kotlin("plugin.serialization") version "1.6.0"
+    kotlin("kapt") version "1.9.0"
 }
 
 android {
@@ -10,6 +11,20 @@ android {
     compileSdk = 34
 
     defaultConfig {
+//        javaCompileOptions {
+//            annotationProcessorOptions {
+//                arguments["room.incremental"] = "true"
+//                arguments["room.incremental"] = "true"
+//                arguments["room.schemaLocation"] = "$projectDir/schemas"
+//            }
+//        }
+
+        kapt {
+            arguments {
+                mapOf("room.schemaLocation" to "$projectDir/schemas")
+            }
+        }
+
         applicationId = "rut.miit.simpleapp"
         minSdk = 26
         targetSdk = 34
@@ -54,6 +69,20 @@ android {
 }
 
 dependencies {
+//    // Room components
+//    implementation("androidx.room:room-runtime:2.2.5")
+//    kapt("androidx.room:room-compiler:2.2.5")
+//    implementation("androidx.room:room-ktx:2.2.5")
+//    androidTestImplementation("androidx.room:room-testing:2.2.5")
+//
+//    //DataBinding
+//    kapt("com.android.databinding:compiler:3.2.0-alpha10")
+    implementation ("androidx.room:room-runtime:2.5.0") // Библиотека "Room"
+    kapt ("androidx.room:room-compiler:2.5.0") // Кодогенератор
+    implementation ("androidx.room:room-ktx:2.5.0")
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
+
+
     implementation(libs.androidx.preference.ktx)
     val nav_version = "2.8.2"
     // Navigation
